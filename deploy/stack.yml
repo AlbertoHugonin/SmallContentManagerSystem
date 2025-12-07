@@ -12,10 +12,11 @@ services:
     restart: unless-stopped
     networks:
       - proxy
-
   frontend:
     build:
       context: ../Client/my-app
+      args:
+      API_URL: https://contentmanager.albertohugonin.it/api
     expose:
       - "80"
     restart: unless-stopped
