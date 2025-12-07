@@ -16,7 +16,7 @@ services:
     build:
       context: ../Client/my-app
       args:
-      API_URL: https://contentmanager.albertohugonin.it/api
+      API_URL: "https://contentmanager.albertohugonin.it/api"
     expose:
       - "80"
     restart: unless-stopped
