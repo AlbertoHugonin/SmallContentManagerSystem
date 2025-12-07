@@ -1,0 +1,9 @@
+
+body {
+    background-color: #0dcaf0 !important;
+  }
+
+  div#col-left, div#col-right {
+    max-height: 94vh;          /* not available in Bootstrap */
+    overflow-y: scroll;
+}

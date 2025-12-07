@@ -1,0 +1,31 @@
+## Retrieving a specific film specifing its ID.
+GET http://localhost:3001/api/pages/ HTTP/1.1
+###
+
+GET http://localhost:3001/api/images/
+###
+
+GET http://localhost:3001/api/users/ HTTP/1.1
+
+GET http://localhost:3001/api/pages/2 HTTP/1.1
+###
+
+
+GET http://localhost:3001/api/contents/ HTTP/1.1
+###
+
+
+GET http://localhost:3001/api/pages/contents/2 HTTP/1.1
+###
+
+
+## Create new film (without id)
+POST http://localhost:3001/pages/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Pagina di prova",
+    "authorId": 1,
+    "pubblication_date": "2023-06-15"
+}
+###
