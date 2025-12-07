@@ -9,10 +9,6 @@ services:
       - CORS_ORIGIN=https://contentmanager.albertohugonin.it
     expose:
       - "3001"
-    volumes:
-      - cmsdata:/app/cmsmall.sqlite
-      - sitename:/app/sitename.txt
-      - public:/app/public
     restart: unless-stopped
     networks:
       - proxy
@@ -29,8 +25,3 @@ services:
 networks:
   proxy:
     external: true
-
-volumes:
-  cmsdata:
-  sitename:
-  public:
