@@ -3,7 +3,7 @@ version: "3.9"
 services:
   backend:
     build:
-      context: ./Server
+      context: ../Server
     environment:
       - PORT=3001
       - CORS_ORIGIN=https://contentmanager.albertohugonin.it
@@ -19,7 +19,7 @@ services:
 
   frontend:
     build:
-      context: ./Client/my-app
+      context: ../Client/my-app
     expose:
       - "80"
     restart: unless-stopped
