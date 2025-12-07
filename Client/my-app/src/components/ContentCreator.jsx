@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { Col, Row, Button, Form, Alert } from 'react-bootstrap';
+import { IMAGE_BASE } from '../API';
 
 
 
@@ -67,7 +68,7 @@ function ContentCreator(props) {
 
                             </Col>
                             <Col>
-                                <img className="img-thumbnail rounded mx-auto d-block" src={"http://localhost:3001/images/" + (Image? Image : props.Images[0])} />
+                                <img className="img-thumbnail rounded mx-auto d-block" src={IMAGE_BASE + (Image? Image : props.Images[0])} />
                             </Col>
                         </>
                     :

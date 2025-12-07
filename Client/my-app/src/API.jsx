@@ -1,5 +1,7 @@
 const API_BASE = import.meta.env.VITE_API || `${window.location.origin}/api`;
 const URL = API_BASE.replace(/\/$/, '');
+const API_ORIGIN = URL.replace(/\/api$/, '');
+export const IMAGE_BASE = `${API_ORIGIN}/images/`;
 
 import {SIMULATEERROR} from './Globals.jsx'
 

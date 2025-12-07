@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState} from 'react';
 import { Col, Container, Row, Button } from 'react-bootstrap';
-import API from '../API';
+import API, { IMAGE_BASE } from '../API';
 import Image from 'react-bootstrap/Image';
 import { ContentCreator } from './ContentCreator';
 import { PencilSquare, Trash, ArrowDownCircle, ArrowUpCircle } from 'react-bootstrap-icons';
@@ -168,7 +168,7 @@ function ContentsManager(props) {
                                 {
                                     x.type == "IMG" &&
 
-                                    <h4>{x.text}{x.image && (<Image src={"http://localhost:3001/images/" + x.image} fluid />)}</h4>
+                                    <h4>{x.text}{x.image && (<Image src={IMAGE_BASE + x.image} fluid />)}</h4>
 
                                 }
                             </Col>
