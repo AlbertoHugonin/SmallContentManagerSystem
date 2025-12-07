@@ -23,7 +23,7 @@ app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`
 app.use(express.static('public'));
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   credentials: true
 };
 app.use(cors(corsOptions));
