@@ -19,9 +19,14 @@ this.SettingUp = (app) => {
     // set up the session
   app.use(session({
     // by default, Passport uses a MemoryStore to keep track of the sessions
-    secret: 'wge8d239bwd93rkskb',   //personalize this random string, should be a secret value
+    secret: process.env.SESSION_SECRET || 'wge8d239bwd93rkskb',
     resave: false,
-    saveUninitialized: false 
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: process.env.SESSION_COOKIE_SAMESITE || 'lax',
+      secure: process.env.SESSION_COOKIE_SECURE === 'true'
+    }
   }));
 
 // then, init passport

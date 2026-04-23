@@ -1,28 +1,36 @@
-version: "3.9"
-
 services:
   backend:
     build:
       context: ../Server
     environment:
-      - PORT=3001
-      - CORS_ORIGIN=https://contentmanager.albertohugonin.it
+      NODE_ENV: production
+      PORT: 3001
+      CORS_ORIGIN: ${PUBLIC_ORIGIN:-http://localhost:8080}
+      TRUST_PROXY: ${TRUST_PROXY:-1}
+      SESSION_SECRET: ${SESSION_SECRET:-change-me-before-production}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
+      SESSION_COOKIE_SAMESITE: ${SESSION_COOKIE_SAMESITE:-lax}
     expose:
       - "3001"
     restart: unless-stopped
     networks:
-      - proxy
+      - app
+
   frontend:
     build:
       context: ../Client/my-app
       args:
-        API_URL: "https://contentmanager.albertohugonin.it/api"
+        VITE_API: ${VITE_API:-/api}
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
     expose:
       - "80"
+    depends_on:
+      - backend
     restart: unless-stopped
     networks:
-      - proxy
+      - app
 
 networks:
-  proxy:
-    external: true
+  app:
+    driver: bridge

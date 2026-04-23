@@ -11,22 +11,48 @@ const dayjs = require('dayjs');
 const AuthAddon = require('./AuthAddon.js');
 const gestore_server = require('./gestore_server.js');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
+const parseTrustProxy = (value) => {
+  if (!value || value === 'false') {
+    return false;
+  }
+  if (value === 'true') {
+    return true;
+  }
+
+  const numericValue = Number(value);
+  if (Number.isInteger(numericValue)) {
+    return numericValue;
+  }
+
+  return value;
+};
+
+const allowedCorsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
 
 
 //CONFIGURAZION EXPRESS
 
 let app = express();
+app.set('trust proxy', parseTrustProxy(process.env.TRUST_PROXY));
 app.use(morgan('dev'));
 app.use(express.json());
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`));
 app.use(express.static('public'));
 
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true
+const corsOptionsDelegate = (req, callback) => {
+  const origin = req.header('Origin');
+  const corsOptions = {
+    origin: Boolean(origin && (allowedCorsOrigins.includes('*') || allowedCorsOrigins.includes(origin))),
+    credentials: true
+  };
+
+  callback(null, corsOptions);
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
 
 
 app = AuthAddon.SettingUp(app);
@@ -258,3 +284,5 @@ app.put('/api/pages/:id', AuthAddon.isLoggedIn, [
   }
 
 });
+
+app.listen(PORT, () => console.log(`Server running on http://0.0.0.0:${PORT}/`));
