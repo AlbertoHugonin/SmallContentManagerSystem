@@ -18,7 +18,7 @@ services:
 
   frontend:
     build:
-      context: ../Client/my-app
+      context: ../Client
       args:
         VITE_API: ${VITE_API:-/api}
     ports:
