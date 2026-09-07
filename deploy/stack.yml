@@ -7,9 +7,13 @@ services:
       PORT: 3001
       CORS_ORIGIN: ${PUBLIC_ORIGIN:-http://localhost:8030}
       TRUST_PROXY: ${TRUST_PROXY:-1}
-      SESSION_SECRET: ${SESSION_SECRET:-change-me-before-production}
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is required}
       SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
       SESSION_COOKIE_SAMESITE: ${SESSION_COOKIE_SAMESITE:-lax}
+    volumes:
+      - /srv/appdata/contentmanager/cmsmall.sqlite:/app/cmsmall.sqlite
+      - /srv/appdata/contentmanager/sitename.txt:/app/sitename.txt
+      - /srv/appdata/contentmanager/images:/app/public/images
     expose:
       - "3001"
     restart: unless-stopped
